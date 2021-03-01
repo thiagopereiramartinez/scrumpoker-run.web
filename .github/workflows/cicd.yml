@@ -1,0 +1,54 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ "master", "develop" ]
+    paths-ignore: [ "*.md" ]
+  pull_request:
+    types: [ "opened", "synchronize", "reopened" ]
+    paths-ignore: [ "*.md" ]
+
+jobs:
+
+  build:
+    name: "Build project and deploy"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'Setup Node.js'
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: 'Setup Firebase credentials'
+        env:
+          CREDENTIAL: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+        run: |
+          echo $CREDENTIAL > /tmp/credentials.json
+
+      - name: 'Setup Firebase CLI'
+        run: |
+          npm install -g firebase-tools
+
+      - name: 'Checkout GitHub Action'
+        uses: actions/checkout@v2
+
+      - name: 'Build project'
+        run: |
+          yarn install
+          yarn build
+
+      - name: 'Deploy to development environment'
+        if: github.ref != 'refs/heads/master'
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: '/tmp/credentials.json'
+        run: |
+          BRANCH=$(echo $GITHUB_REF | sed 's/^.*\/\(.*\)$/\1/g')
+          firebase hosting:channel:deploy $BRANCH
+
+      - name: 'Deploy to production environment'
+        if: github.ref == 'refs/heads/master'
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: '/tmp/credentials.json'
+        run: |
+          firebase deploy --only hosting
