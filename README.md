@@ -1,3 +1,6 @@
+
+[![Workflow badge](https://github.com/thiagopereiramartinez/scrumpoker-run.web/actions/workflows/cicd.yml/badge.svg)](https://github.com/thiagopereiramartinez/scrumpoker-run.web/actions/workflows/cicd.yml)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
