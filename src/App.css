@@ -10,6 +10,12 @@
   align-items: center;
 }
 
+.dashboard-bg {
+  background-color: #F7F9FA;
+  height: 100vh;
+  padding: 88px;
+}
+
 .logo {
   font-family: 'Lato', sans-serif;
   font-style: normal;
