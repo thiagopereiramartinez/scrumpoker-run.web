@@ -1,7 +1,7 @@
 import '../App.css'
 
 import React, { useState } from 'react';
-import { Row, Col, Tag, Input, Button, Radio } from 'antd';
+import { Row, Col, Tag, Input, Button, Radio, List } from 'antd';
 import { ExperimentOutlined } from '@ant-design/icons';
 
 export default function Dashboard() {
@@ -11,6 +11,29 @@ export default function Dashboard() {
     const onChange = e => {
         setValue(e.target.value);
     }
+
+    const data = [
+        {
+            id: 0,
+            name: 'Jerome Bell',
+            vote: 5
+        },
+        {
+            id: 1,
+            name: 'Marvin McKinney',
+            vote: 5
+        },
+        {
+            id: 2,
+            name: 'Ronald Richards',
+            vote: 8
+        },
+        {
+            id: 3,
+            name: 'Albert Flores',
+            vote: 13
+        }
+    ];
 
     return <>
         <div className="dashboard-bg">
@@ -35,7 +58,7 @@ export default function Dashboard() {
                         <h1>Current Topic</h1>
                         <Button type="primary" style={{ marginLeft: 8, marginBottom: 12 }}>Reveal</Button>
                     </Row>
-                    <Radio.Group onChange={onChange} value={value} buttonStyle="solid" style={{  }}>
+                    <Radio.Group onChange={onChange} value={value} buttonStyle="solid" style={{}}>
                         <Radio.Button value={1} className="votecard">0</Radio.Button>
                         <Radio.Button value={2} className="votecard">1/2</Radio.Button>
                         <Radio.Button value={3} className="votecard">1</Radio.Button>
@@ -50,8 +73,21 @@ export default function Dashboard() {
                         <Radio.Button value={12} className="votecard">?</Radio.Button>
                     </Radio.Group>
                 </Col>
-                <Col span={8} style={{ backgroundColor: 'yellow' }}>col-8</Col>
-                <Col span={8} style={{ backgroundColor: 'brown' }}>col-8</Col>
+                <Col span={8}>
+                    <h1>Players</h1>
+                    <List
+                        dataSource={data}
+                        renderItem={item => (
+                            <List.Item>
+                                <div>
+                                    {item.name}
+                                    <Tag color="blue" style={{ marginLeft: 8 }}>{item.vote}</Tag>
+                                </div>
+                            </List.Item>
+                        )}
+                    />
+                </Col>
+                <Col span={8}></Col>
             </Row>
         </div>
     </>;
