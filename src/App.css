@@ -36,3 +36,14 @@
   align-items: center;
   padding: 48px;
 }
+
+.votecard {
+  width: 100px;
+  height: 150px;
+  margin-right: 12px;
+  margin-bottom: 12px;
+  text-align: center;
+  font-size: 38px;
+  font-weight: 500;
+  padding-top: 60px;
+}
