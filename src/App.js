@@ -14,7 +14,7 @@ export default function App() {
             renders the first one that matches the current URL. */}
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/dashboard" component={Dashboard} />
+        <Route path="/:pin/:player_id" component={Dashboard} />
       </Switch>
     </Router>
   );
